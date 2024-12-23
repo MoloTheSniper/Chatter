@@ -22,7 +22,7 @@ const SignIn = () => {
   }
   return (
     <CustomKeyBoardView>
-        <View className = "flex-1">
+       
         <StatusBar style="dark"/>
         <View style= {{paddingTop: hp(8), paddingHorizontal: wp(5)}} className ="flex-1 gap-12">
           {/*SignIn Image */}
@@ -86,7 +86,6 @@ const SignIn = () => {
               </View>
             </View>
           </View>
-        </View>
         </View>
     </CustomKeyBoardView>
   )
