@@ -5,9 +5,12 @@ import {Octicons} from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import Loading from '@/components/Loading';
 import CustomKeyBoardView from '@/components/CustomKeyBoardView';
+import { useAuth } from './context/authContext';
 const SignIn = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const {login} = useAuth();
+
   const emailRef = useRef("");
   const passwordRef = useRef("");
 
@@ -17,7 +20,14 @@ const SignIn = () => {
         Alert.alert("Sign In","Please fill in all the fields!");
         return;
       }
-
+      setLoading(true);
+      const response = await login(emailRef.current, passwordRef.current);
+      setLoading(false);
+      console.log("Sign In response", response)
+      if(!response.success)
+        {
+          Alert.alert('Sign In', response.msg);
+        }
       //------Login Process--------
   }
   return (
