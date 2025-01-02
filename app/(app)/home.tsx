@@ -1,22 +1,47 @@
-import { View, Text, Button, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, Button, TouchableOpacity, StatusBar, ActivityIndicator } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '../context/authContext'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import ChatList from '@/components/ChatList';
+import { getDocs, query, where } from 'firebase/firestore';
+import { usersRef } from '@/firebaseConfig';
 
 const home = () => {
   const {logout, user} = useAuth();
-  const handleLogout = async () =>{
-    await logout();
+  const [users, setUsers] = useState([]);
+  useEffect(()=>{
+      if(user?.uid)
+          getUsers();
+  },[])
+  const getUsers = async ()=>{
+      // fetch users
+      const q = query(usersRef, where('userId', '!=', user?.uid));
+
+      const querySnapshot = await getDocs(q);
+      let data = [];
+      querySnapshot.forEach(doc=>{
+          data.push({...doc.data()});
+      });
+
+      setUsers(data);
   }
-  console.log("user data: ", user);
+ // console.log("user data: ", user);
+ console.log("my data!",users.length);
   return (
     <View className="flex-1 bg-white">
-      <Text>home</Text>
-      <TouchableOpacity onPress ={handleLogout} style = {{height:hp(6.5)}}className='bg-indigo-500 rounded-xl justify-center items-center'>
-          <Text style={{fontSize:hp(2.7)}} className="text-white font-bold tracking-wider">
-            Log Out
-          </Text>
-      </TouchableOpacity>
+      <StatusBar style="light" />
+
+      {
+        users.length>0? (
+            <ChatList  users={users} />
+        ):(
+            <View className="flex items-center" style={{top: hp(30)}}>
+                <ActivityIndicator size="large" />
+                {/* <Loading size={hp(10)} /> */}
+            </View>
+        )
+      }
+      
     </View>
   )
 }
