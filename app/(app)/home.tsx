@@ -14,7 +14,7 @@ const home = () => {
           getUsers();
   },[])
   const getUsers = async ()=>{
-      // fetch users
+      // fetch users that are not yourself
       const q = query(usersRef, where('userId', '!=', user?.uid));
 
       const querySnapshot = await getDocs(q);
@@ -30,7 +30,6 @@ const home = () => {
   return (
     <View className="flex-1 bg-white">
       <StatusBar style="light" />
-
       {
         users.length>0? (
             <ChatList currentUser ={user} users={users} />

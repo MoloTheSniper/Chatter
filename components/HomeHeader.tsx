@@ -13,6 +13,7 @@ import {
   } from 'react-native-popup-menu';
 import { MenuItem } from './CustomMenuItems';
 import { AntDesign, Feather } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 const ios = Platform.OS =='ios';
 
@@ -22,7 +23,7 @@ const HomeHeader = () => {
 
   const {top} = useSafeAreaInsets();
   const handleProfile = ()=>{
-
+    router.push('profile')
   }
 
   const handleLogout = async ()=>{
@@ -64,7 +65,7 @@ return (
           >
               <MenuItem
                   text="Profile"
-                  action={handleProfile}
+                  action={handleProfile} //Takes you to profile page
                   value={null}
                   icon={<Feather name="user" size={hp(2.5)} color="#737373" /> }
               />
