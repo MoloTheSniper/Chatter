@@ -82,7 +82,7 @@ const ChatRoom = () => {
             Alert.alert('Message', err.message);
         }
     }
-
+    
   return (
     <CustomKeyBoardView inChat={true}>
         <View className='flex-1 bg-white'>

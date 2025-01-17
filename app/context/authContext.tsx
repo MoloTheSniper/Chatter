@@ -31,7 +31,12 @@ export const AuthContextProvider = ({children}) => {
 
         if(docSnap.exists()){
             let data = docSnap.data();
-            setUser({...user, username: data.username, profileUrl: data.profileUrl, userId: data.userId})
+            setUser({...user, 
+                username: data.username,
+                profileUrl: data.profileUrl,
+                userId: data.userId,
+                email: data?.email, //***Decided to Add email to docs */
+            })
         }
     }
 
@@ -57,7 +62,7 @@ export const AuthContextProvider = ({children}) => {
     const register = async (email, password, username, profileUrl)=>{
         try{
             const response = await createUserWithEmailAndPassword(auth, email, password);
-            console.log('response.user :', response?.user);
+           // console.log('response.user :', response?.user);
 
             // setUser(response?.user);
             // setIsAuthenticated(true);
@@ -65,7 +70,8 @@ export const AuthContextProvider = ({children}) => {
             await setDoc(doc(db, "users", response?.user?.uid),{
                 username, 
                 profileUrl,
-                userId: response?.user?.uid
+                userId: response?.user?.uid,
+                email //*****Decided to Add email in Firestore Too */
             });
             return {success: true, data: response?.user};
         }catch(e){

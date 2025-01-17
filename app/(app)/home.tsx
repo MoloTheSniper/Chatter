@@ -26,7 +26,8 @@ const home = () => {
       setUsers(data);
   }
  // console.log("user data: ", user);
- console.log("my data!",users.length);
+// console.log("my data!",users.length);
+//console.log("My User ID in Home: "+ user.uid)
   return (
     <View className="flex-1 bg-white">
       <StatusBar style="light" />

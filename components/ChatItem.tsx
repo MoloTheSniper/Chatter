@@ -3,9 +3,8 @@ import React, { useEffect, useState } from 'react'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import { Image } from 'expo-image'
 import { blurhash, formatDate, getRoomId } from '@/app/utils/common'
-import { collection, count, doc, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore'
-import { db, usersRef } from '@/firebaseConfig'
-import ChatNotification from './ChatNotification'
+import { collection, doc, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { db } from '@/firebaseConfig'
 const ChatItem = ({item, router, noBorder, currentUser}) => {
 
   const [lastMessage, setLastMessage] = useState(undefined);
@@ -26,29 +25,6 @@ const ChatItem = ({item, router, noBorder, currentUser}) => {
  
   //console.log('last message:',lastMessage);
 
-  //**************************Message Notification Count*********************//
-  let [count,setCount] = useState();
-
-  useEffect(() => {
-    let roomId = getRoomId(currentUser?.userId, item?.userId);
-    const docRef = doc(db, "rooms", roomId);
-    const messagesRef = collection(docRef, "messages");
-  
-    // Query to get messages from the specific user (not the current user)
-    const q = query(
-      messagesRef,
-      where('userId', '==', item?.userId) // Filter messages from the specific user
-    );
-  
-    let unsub = onSnapshot(q, (snapshot) => {
-      let messageCount = snapshot.size; // Get the number of messages
-      setCount(messageCount); // Update state to reflect the count
-    });
-  
-    return unsub; 
-  }, []);
-
-  //*********************End of Notification Messages**********************//
   const openChatRoom = () =>
     {
       router.push({pathname: '/chatRoom', params: item})
@@ -90,7 +66,6 @@ const ChatItem = ({item, router, noBorder, currentUser}) => {
                 <Text style ={{fontSize: hp(1.8)}} className='font-semibold text-neutral-800'>{item?.username}</Text>
                 <Text style ={{fontSize: hp(1.6)}} className='font-medium text-neutral-500'>
                   {renderTime()}
-                  <View><ChatNotification count = {count}/></View>
                 </Text>
             </View>
             <Text style ={{fontSize: hp(1.6)}} className='font-medium text-neutral-500'>
