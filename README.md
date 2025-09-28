@@ -29,11 +29,12 @@ You can start developing by editing the files inside the **app** directory. This
 
 ## Screenshots
 
-### SignUp Screen
-![Home Screen](assets/1.png)
+### Sign Up Screen
+<img src="assets/1.png" alt="Home Screen" width="400"/>
 
-### Home Page
-![Profile Screen](assets/2.png)
+### Home Screen
+<img src="assets/2.png" alt="Profile Screen" width="400"/>
+
 
 ## Get a fresh project
 
