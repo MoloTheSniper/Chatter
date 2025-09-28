@@ -25,6 +25,16 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
+## After successfully running the project, you can now create an account and test the funtionality!
+
+## Screenshots
+
+### SignUp Screen
+![Home Screen](assets/1.png)
+
+### Home Page
+![Profile Screen](assets/2.png)
+
 ## Get a fresh project
 
 When you're ready, run:
